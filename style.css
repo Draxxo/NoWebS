@@ -15,7 +15,7 @@ h2 {
 }
 
 .tuning {
-	animation: clignote 4s infinite;
+	animation: clignote 3s infinite;
 }
 
 label {
@@ -36,7 +36,10 @@ label input {
 
 #submit {
 	padding: 10px;
-	border-radius: 20%;
+	border-radius: 30%;
+}
+#submit:focus {
+	outline: none;
 }
 
 #resultat {
@@ -46,10 +49,20 @@ label input {
 	margin-left: 50px;
 }
 
+a {
+	color: green;
+	margin-top: 50px;
+	width: 100%;
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	font-size: 60px;
+}
+
 @keyframes clignote {
 	0%   { color:red; }
 	25%  { color:green; }
 	50%  { color:yellow; }
-	75% { color:blue; }
+	75%  { color:blue; }
 	100% { color:pink; }
 }

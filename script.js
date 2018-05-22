@@ -26,10 +26,25 @@ button.onclick = function() {
 
 	comptableOfForm = new comptable(data['montant'], data['duree'], data['taux']);
 
-    var resultat = comptableOfForm.calculTauxInteret() // On calcul le taux
+	var resultat = parseFloat(comptableOfForm.calculTauxInteret()); // On calcul le taux
+	var affichageResultat = document.getElementById('resultat');
 
-    document.getElementById('resultat').innerHTML = '=> ' + resultat + ' par mois pendant ' + data['duree'] + ' an(s)'; // On affiche le résultat
-
+	//Vérification des données & affichage du résultat
+	if(comptableOfForm.montant < 500 || comptableOfForm.montant > 1000000) {
+		affichageResultat.innerHTML = '=> Erreur, vous devez avoir un montant entre 500 & 1.000.000 d\'euros'; 
+	}
+	else if(comptableOfForm.duree < 1 || comptableOfForm.duree > 25 ) {
+		affichageResultat.innerHTML = '=> Erreur, vous devez choisir une durée compris entre 1an et 25ans';
+	}
+	else if(comptableOfForm.taux < 1 || comptableOfForm.taux > 15) {
+		affichageResultat.innerHTML = '=> Erreur, vous devez choisir un taux compris entre 1% et 15% (taux à revoir avec nous)';
+	}
+	else if(resultat < 0) {
+		affichageResultat.innerHTML = '=> Erreur, vérifier bien les informations envoyées.'; 
+	}
+    else // On affiche le résultat
+    	affichageResultat.innerHTML = '=> ' + resultat + ' euros par mois pendant ' + data['duree'] + ' an(s)';
+    	
     return false;
 };
 

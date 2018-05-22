@@ -29,11 +29,13 @@
 				<input type="submit" id="submit" value="Envoyer">
 			</form>
 
-			<h1 id="resultat"></h1>
+			<h2 id="resultat"></h2>
 
 		</div>
 
 		<hr>
+
+		<a href="https://www.alexisprevostmaynen.fr">Go to my Website !</a>
 
 	</body>
 </html>
