@@ -1,0 +1,55 @@
+html, body {
+	padding: 20px;
+}
+
+hr {
+	margin-top: 25px;
+}
+
+h2 {
+	margin-left: 50px;
+}
+
+.flex {
+	display: flex;
+}
+
+.tuning {
+	animation: clignote 4s infinite;
+}
+
+label {
+	display: block;
+	widows: 400px;
+	margin-bottom: 15px;
+}
+
+label p {
+	width: 175px;
+	display: inline-block;
+}
+
+label input {
+	width: 200px;
+	text-align: left;
+}
+
+#submit {
+	padding: 10px;
+	border-radius: 20%;
+}
+
+#resultat {
+	display: flex;
+	align-items: center;
+	margin-top: -30px;
+	margin-left: 50px;
+}
+
+@keyframes clignote {
+	0%   { color:red; }
+	25%  { color:green; }
+	50%  { color:yellow; }
+	75% { color:blue; }
+	100% { color:pink; }
+}
