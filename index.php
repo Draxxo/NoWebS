@@ -36,7 +36,7 @@
 		<hr>
 
 		<a href="https://www.alexisprevostmaynen.fr">Go to my Website !</a>
-
+		<img src="me.png">
 	</body>
 </html>
 <!-- <script type="text/javascript" src="scriptFred.js"></script> -->
