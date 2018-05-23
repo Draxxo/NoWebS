@@ -43,7 +43,7 @@ typeof vol.toString(); // 'function'
 typeof vol.constructor(); // 'function'
 
 vol.hasOwnProperty('couleur'); // true
-vol.hasOwnProperty('constructor'); // false*/
+vol.hasOwnProperty('constructor'); // false*
 
 function Voiture(modele) {
 	this.modele = modele;
@@ -60,4 +60,27 @@ Voiture.prototype.roues = true;
 
 function VoitureTuning() {
 	Voiture.apply(this);
+}*/
+
+function getXMLHttpRequest() {
+	var totoalaplace = null;
+
+	if(window.XMLHttpRequest || window.ActiveXObject) {
+		if(window.ActiveXObject) {
+			try {
+				totoalaplace = new ActiveXObject('Msxml2.XMLHTTP');
+			}
+			catch(e) {
+				totoalaplace = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+		}
+		else {
+			totoalaplace = new XMLHttpRequest();
+		}
+
+		return totoalaplace;
+	}
+	else {
+		return false;
+	}
 }

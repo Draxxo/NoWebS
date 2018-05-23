@@ -17,12 +17,14 @@ comptable.prototype.calculTauxInteret = function() {
 	return resultat.toFixed(2);
 }
 
+
+//Comptable
 var button = document.getElementById('submit');
 
 // Ce déclenche au click du button du formulaire
 button.onclick = function() {
 
-	var data = serializeForm(); //On serialize
+	var data = serializeForm('form'); //On serialize
 
 	comptableOfForm = new comptable(data['montant'], data['duree'], data['taux']);
 
@@ -48,12 +50,63 @@ button.onclick = function() {
     return false;
 };
 
+
+//AJAX
+var buttonAjax = document.getElementById('submitAjax');
+
+// Ce déclenche au click du button du formulaire
+buttonAjax.onclick = function() {
+
+	let martineTenteUneConnexionEnAjax = null;
+	martineTenteUneConnexionEnAjax = getXMLHttpRequest();
+
+	martineTenteUneConnexionEnAjax.onreadystatechange = function() {
+		if(martineTenteUneConnexionEnAjax.readyState == 4 && martineTenteUneConnexionEnAjax.status == 200) {
+			alert(this.responseText);
+		}
+	};
+
+	let formData = new FormData(document.forms[1]);	
+	console.log(formData);
+
+	martineTenteUneConnexionEnAjax.open('POST', 'ajax.php', true);
+	martineTenteUneConnexionEnAjax.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	martineTenteUneConnexionEnAjax.send(formData);
+
+	return false;
+}
+
 //Serialization du formulaire
-function serializeForm() {
+function serializeForm(idForm) {
+	var form = document.getElementById(idForm);
 	var data = [];
-	var inputs = document.getElementsByTagName("input"); 
+	var inputs = form.getElementsByTagName("input"); 
 	for (var i = 0; i < inputs.length-1; i++) { 
 	    data[inputs[i].name] = inputs[i].value;
 	}
 	return data;
+}
+
+//Function pour ce co à de l'ajax si c'est possible !
+function getXMLHttpRequest() {
+	var totoalaplace = null;
+
+	if(window.XMLHttpRequest || window.ActiveXObject) {
+		if(window.ActiveXObject) {
+			try {
+				totoalaplace = new ActiveXObject('Msxml2.XMLHTTP');
+			}
+			catch(e) {
+				totoalaplace = new ActiveXObject('Microsoft.XMLHTTP');
+			}
+		}
+		else {
+			totoalaplace = new XMLHttpRequest();
+		}
+
+		return totoalaplace;
+	}
+	else {
+		return false;
+	}
 }
