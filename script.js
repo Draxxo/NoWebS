@@ -100,29 +100,34 @@ var buttonStorageAjax = document.getElementById('submitStorageAjax');
 buttonStorageAjax.onclick = function() {
 	let datas = serializeForm('formStorage');
 
-
-
 	if(connectionExist()) { //ajax
 
 	}
 	else { //local storage 
-
+		for (var test in datas) {
+			sessionStorage.setItem(test, datas[test]);
+		}
+		console.log(sessionStorage);
 	}
 
-	console.log(connectionExist());
+	console.log(connectionExist().statusText);
 
 	return false;
 }
 
 //Tester la conenxion
 function connectionExist() {
-    document.location = "http://www.google.com";
-	//Prévoir de bloquer la redirection ici ?
-	if(document.location === 'undefined'){
-		return false;
-	} else {
-		return true;
-	}
+    var xhr = new XMLHttpRequest();
+    xhr.open('HEAD', 'http://localhost/NoWebS/'); //penser à couper le server WAMP
+    xhr.onreadystatechange = function(){     
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            return true;
+        } else if(xhr.readyState == 4) {
+            return false;
+        }
+    };
+    xhr.send(null);
+    return xhr;
 }
 
 //Serialization du formulaire

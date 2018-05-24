@@ -113,3 +113,5 @@
 	</body>
 </html>
 <script type="text/javascript" src="script.js"></script>
+<script type="text/javascript" src="tone.min.js"></script>
+<script type="text/javascript" src="scriptTone.js"></script>
