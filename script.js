@@ -76,6 +76,55 @@ buttonAjax.onclick = function() {
 	return false;
 }
 
+//Local storage
+var buttonStorage = document.getElementById('submitStorage');
+
+// Ce déclenche au click du button du formulaire
+buttonStorage.onclick = function() {
+	let datas = serializeForm('formStorage');
+
+	for (var test in datas) {
+		sessionStorage.setItem(test, datas[test]);
+	}
+
+	console.log(sessionStorage);
+
+	return false;
+}
+
+
+//lOCAL STORAGE && AJAX for connexion
+var buttonStorageAjax = document.getElementById('submitStorageAjax');
+
+// Ce déclenche au click du button du formulaire
+buttonStorageAjax.onclick = function() {
+	let datas = serializeForm('formStorage');
+
+
+
+	if(connectionExist()) { //ajax
+
+	}
+	else { //local storage 
+
+	}
+
+	console.log(connectionExist());
+
+	return false;
+}
+
+//Tester la conenxion
+function connectionExist() {
+    document.location = "http://www.google.com";
+	//Prévoir de bloquer la redirection ici ?
+	if(document.location === 'undefined'){
+		return false;
+	} else {
+		return true;
+	}
+}
+
 //Serialization du formulaire
 function serializeForm(idForm) {
 	var form = document.getElementById(idForm);
@@ -109,4 +158,14 @@ function getXMLHttpRequest() {
 	else {
 		return false;
 	}
+}
+
+
+//Tuning body 
+function changeBody() {
+	var x = Math.floor(Math.random() * 256);
+    var y = Math.floor(Math.random() * 256);
+    var z = Math.floor(Math.random() * 256);
+    var bgColor = "rgb(" + x + "," + y + "," + z + ")";
+	document.body.style.background = bgColor;
 }

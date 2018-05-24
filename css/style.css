@@ -34,11 +34,11 @@ label input {
 	text-align: left;
 }
 
-#submit, #submitAjax {
+.submit {
 	padding: 10px;
 	border-radius: 30%;
 }
-#submit:focus, , #submitAjax:focus {
+.submit:focus {
 	outline: none;
 }
 
@@ -61,10 +61,10 @@ a {
 
 img {
 	position: fixed;
-	bottom: 0;
 	right: 0;
 	width: 15%;
 	z-index: -1;
+	animation: mouve 3s infinite;
 }
 
 @keyframes clignote {
@@ -73,4 +73,10 @@ img {
 	50%  { color:yellow; }
 	75%  { color:blue; }
 	100% { color:pink; }
+}
+
+@keyframes mouve {
+	0% { top: 0px; transform: rotate(240deg);}
+	50% { top: 75vh; transform: rotate(360deg); }
+	100% { top: 0px; transform: rotate(240deg);}
 }
