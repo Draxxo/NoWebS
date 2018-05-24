@@ -32,6 +32,7 @@
 	var bullets = [];
 
 	var invaders = [];
+	var allDead = false;
 
 	var sens = true; //true gauche et false droite
 
@@ -151,6 +152,7 @@
 
 		//MOUVEMENT ENNEMIES
 		var changeSens = false;
+		allDead = true;
 		for(var j=0;j<invaders.length;j++) {
 			if(invaders[j].x != -100) {
 				if(invaders[j].x < 5) {
@@ -164,11 +166,19 @@
 
 				if(sens) invaders[j].x -= 3;
 				else invaders[j].x += 3;
+				allDead = false;
 			}
 		}
 
 		for(var j=0;j<invaders.length;j++) {
 			if(changeSens) invaders[j].y += 5;
+		}
+
+		if(allDead && !menu) {
+			for(var i=bulletsPos;i<bulletsLenght;i++) {
+				bullets[i].x = bullets[i].y = -200;
+			}
+			initGame();
 		}
 
 		canvas.update();
