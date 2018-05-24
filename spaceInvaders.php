@@ -14,6 +14,8 @@
 <script type="text/javascript" src="ndgmr.Collision.js"></script>
 <script type="text/javascript">
 
+	var menu = true;
+
 	var KEYCODE_ENTER = 13;
 	var KEYCODE_SPACE = 32;
 	var KEYCODE_LEFT = 37;
@@ -37,10 +39,30 @@
 
 	var soundDestruction = "Trolol";
 
-	function init() {
+	function initMenu() {
 	    canvas = new createjs.Stage("gameCanvas");
 	    
-	    spaceship = new createjs.Bitmap("img/spaceship.png");
+	    let logo = new createjs.Bitmap("img/logo.png");
+	    logo.y = (canvas.canvas.height - logo.image.height) / 2;
+	    logo.x = (canvas.canvas.width - 350) / 2;
+
+	    let text = new createjs.Text("Press space to start THE game of your life !", "30px Arial", "#ffffff");
+	    text.y = (canvas.canvas.height + 400) / 2;
+	    text.x = 220;
+
+	    document.onkeydown = keydown;
+    	document.onkeyup = keyup;
+	    createjs.Ticker.addEventListener("tick", tick);
+
+	    canvas.addChild(logo);
+	    canvas.addChild(text);
+	    canvas.update();
+	}	
+
+	function initGame() {
+		canvas = new createjs.Stage("gameCanvas");
+
+		spaceship = new createjs.Bitmap("img/spaceship.png");
 	    spaceship.y = canvas.canvas.height - 50;
 	    spaceship.x = (canvas.canvas.width - spaceship.image.width) / 2;
 	    
@@ -56,11 +78,8 @@
 	    
 	    createjs.Sound.registerSound("music/trolol.mp3", soundDestruction);
 
-	    document.onkeydown = keydown;
-    	document.onkeyup = keyup;
-	    createjs.Ticker.addEventListener("tick", tick);
 	    canvas.update();
-	}	
+	}
 
 	function initInvaders(img, posY) {	
 		for(var i=0;i<8;i++) {
@@ -90,8 +109,13 @@
 	}
 
 	function tick() {
+
 		//MOUVEMENT SPACESHIP
-		if (keys[KEYCODE_SPACE] && bulletTime == BULLET_TIME_MAX) {
+		if (keys[KEYCODE_SPACE] && menu) {
+			initGame();
+			menu = false;
+		}
+		else if (keys[KEYCODE_SPACE] && bulletTime == BULLET_TIME_MAX) {
 			createBullet();
 			bulletTime = 0;
 	    }
@@ -144,5 +168,5 @@
 		canvas.update();
 	}
 
-	init();
+	initMenu();
 </script>
