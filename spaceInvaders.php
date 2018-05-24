@@ -29,6 +29,8 @@
 
 	var invaders = [];
 
+	var sens = true; //true gauche et false droite
+
 	function init() {
 	    canvas = new createjs.Stage("gameCanvas");
 	    
@@ -46,6 +48,7 @@
 	    	canvas.addChild(invaders[i]);	
 	    }
 	    
+	    createjs.Ticker.addEventListener("tick", tick);
 	    canvas.update();
 	}	
 
@@ -61,7 +64,7 @@
     function keyPressed(event) {
 		switch(event.keyCode) {
 			case KEYCODE_LEFT: spaceship.x -= 5; break;
-			case KEYCODE_RIGHT: spaceship.x += 5; break;
+			case KEYCODE_RIGHT: spaceship.x += 5; break;  
 		}
 		if(KEYCODE_SPACE == event.keyCode) {
 			createBullet();
@@ -80,12 +83,10 @@
 	    bulletsLenght++;
 	}
 
-	createjs.Ticker.addEventListener("tick", tick);
 	function tick() {
 		for(var i=bulletsPos;i<bulletsLenght;i++) {
 			if(bullets[i].y < -10) {
 				canvas.removeChild(bullets[i]);
-				bulletsPos++;
 			}
 			else bullets[i].y -= 5;
 			for(var j=0;j<invaders.length;j++) {
@@ -96,6 +97,27 @@
 					invaders[j].x = invaders[j].y = bullets[i].x = bullets[i].y = -100
 				}
 			}
+		}
+
+		var changeSens = false;
+		for(var j=0;j<invaders.length;j++) {
+			if(invaders[j].x != -100) {
+				if(invaders[j].x < 5) {
+					sens = false;
+					changeSens = true;
+				}
+				else if(invaders[j].x > 880) {
+					sens = true;
+					changeSens = true;
+				}	
+
+				if(sens) invaders[j].x -= 3;
+				else invaders[j].x += 3;
+			}
+		}
+
+		for(var j=0;j<invaders.length;j++) {
+			if(changeSens) invaders[j].y += 5;
 		}
 
 		canvas.update();
