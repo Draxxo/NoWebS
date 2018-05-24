@@ -73,7 +73,7 @@
 
 		bullet = new createjs.Bitmap("img/bullet.png");
 	    bullet.y = canvas.canvas.height - 50;
-	    bullet.x = spaceship.x + spaceship.image.width/2 - 2;
+	    bullet.x = spaceship.x + spaceship.image.width/2 - 1;
 
 		bullets[bulletsLenght] = bullet;
 	    canvas.addChild(bullets[bulletsLenght]);
