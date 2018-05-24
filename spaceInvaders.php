@@ -125,7 +125,7 @@
 
 	    for(var j=0;j<invaders.length;j++) {
 		    if(ndgmr.checkRectCollision(invaders[j], spaceship)) {
-		    	initMenu();
+		    	window.location.reload()
 		    }
 		}	
 
