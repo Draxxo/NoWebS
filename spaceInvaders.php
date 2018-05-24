@@ -31,6 +31,8 @@
 
 	var sens = true; //true gauche et false droite
 
+	var keys = {};
+
 	function init() {
 	    canvas = new createjs.Stage("gameCanvas");
 	    
@@ -48,6 +50,8 @@
 	    	canvas.addChild(invaders[i]);	
 	    }
 	    
+	    document.onkeydown = keydown;
+    	document.onkeyup = keyup;
 	    createjs.Ticker.addEventListener("tick", tick);
 	    canvas.update();
 	}	
@@ -61,15 +65,12 @@
 		}
 	}
 
-    function keyPressed(event) {
-		switch(event.keyCode) {
-			case KEYCODE_LEFT: spaceship.x -= 5; break;
-			case KEYCODE_RIGHT: spaceship.x += 5; break;  
-		}
-		if(KEYCODE_SPACE == event.keyCode) {
-			createBullet();
-		}
-		canvas.update();
+	function keydown(event) {
+	    keys[event.keyCode] = true;
+	}
+
+	function keyup(event) {
+	    delete keys[event.keyCode];
 	}
 
 	function createBullet() {
@@ -84,6 +85,13 @@
 	}
 
 	function tick() {
+
+		//MOUVEMENT SPACESHIP
+		if (keys[KEYCODE_SPACE]) createBullet();
+	    if (keys[KEYCODE_LEFT]) spaceship.x -= 5;
+	    if (keys[KEYCODE_RIGHT]) spaceship.x += 5;
+
+		//MOUVEMENT BULLET
 		for(var i=bulletsPos;i<bulletsLenght;i++) {
 			if(bullets[i].y < -10) {
 				canvas.removeChild(bullets[i]);
@@ -99,6 +107,7 @@
 			}
 		}
 
+		//MOUVEMENT ENNEMIES
 		var changeSens = false;
 		for(var j=0;j<invaders.length;j++) {
 			if(invaders[j].x != -100) {
@@ -124,5 +133,4 @@
 	}
 
 	init();
-    document.onkeydown = keyPressed;	
 </script>
