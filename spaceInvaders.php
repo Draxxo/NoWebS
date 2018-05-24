@@ -25,6 +25,8 @@
 
 	var bulletsPos    = 0;
 	var bulletsLenght = 0;
+	var bulletTime = 250;	
+	var BULLET_TIME_MAX = 250;
 	var bullets = [];
 
 	var invaders = [];
@@ -78,7 +80,6 @@
 	}
 
 	function createBullet() {
-
 		bullet = new createjs.Bitmap("img/bullet.png");
 	    bullet.y = canvas.canvas.height - 50;
 	    bullet.x = spaceship.x + spaceship.image.width/2 - 1;
@@ -89,11 +90,14 @@
 	}
 
 	function tick() {
-
 		//MOUVEMENT SPACESHIP
-		if (keys[KEYCODE_SPACE]) createBullet();
-	    if (keys[KEYCODE_LEFT]) spaceship.x -= 5;
-	    if (keys[KEYCODE_RIGHT]) spaceship.x += 5;
+		if (keys[KEYCODE_SPACE] && bulletTime == BULLET_TIME_MAX) {
+			createBullet();
+			bulletTime = 0;
+	    }
+	    else if(bulletTime != BULLET_TIME_MAX)bulletTime += 25;
+	    if (keys[KEYCODE_LEFT]) spaceship.x = spaceship.x <= 10 ? 10 : spaceship.x -= 5;
+	    if (keys[KEYCODE_RIGHT]) spaceship.x = spaceship.x >= 900 ? 900 : spaceship.x += 5;
 
 		//MOUVEMENT BULLET
 		for(var i=bulletsPos;i<bulletsLenght;i++) {
@@ -106,7 +110,7 @@
 				if(ndgmr.checkRectCollision(invaders[j], bullets[i])) {
 					canvas.removeChild(invaders[j]);
 					canvas.removeChild(bullets[i]);
-					
+
 					createjs.Sound.play(soundDestruction);
 
 					invaders[j].x = invaders[j].y = -100;
