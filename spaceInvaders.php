@@ -123,6 +123,12 @@
 	    if (keys[KEYCODE_LEFT]) spaceship.x = spaceship.x <= 10 ? 10 : spaceship.x -= 5;
 	    if (keys[KEYCODE_RIGHT]) spaceship.x = spaceship.x >= 900 ? 900 : spaceship.x += 5;
 
+	    for(var j=0;j<invaders.length;j++) {
+		    if(ndgmr.checkRectCollision(invaders[j], spaceship)) {
+		    	initMenu();
+		    }
+		}	
+
 		//MOUVEMENT BULLET
 		for(var i=bulletsPos;i<bulletsLenght;i++) {
 			if(bullets[i].y < -10) {
