@@ -33,6 +33,8 @@
 
 	var keys = {};
 
+	var soundDestruction = "Trolol";
+
 	function init() {
 	    canvas = new createjs.Stage("gameCanvas");
 	    
@@ -50,6 +52,8 @@
 	    	canvas.addChild(invaders[i]);	
 	    }
 	    
+	    createjs.Sound.registerSound("music/trolol.mp3", soundDestruction);
+
 	    document.onkeydown = keydown;
     	document.onkeyup = keyup;
 	    createjs.Ticker.addEventListener("tick", tick);
@@ -63,7 +67,7 @@
 			invader.x = 100*(i+1);
 			invaders.push(invader);
 		}
-	}
+	}      
 
 	function keydown(event) {
 	    keys[event.keyCode] = true;
@@ -97,12 +101,16 @@
 				canvas.removeChild(bullets[i]);
 			}
 			else bullets[i].y -= 5;
+			
 			for(var j=0;j<invaders.length;j++) {
 				if(ndgmr.checkRectCollision(invaders[j], bullets[i])) {
 					canvas.removeChild(invaders[j]);
 					canvas.removeChild(bullets[i]);
+					
+					createjs.Sound.play(soundDestruction);
 
-					invaders[j].x = invaders[j].y = bullets[i].x = bullets[i].y = -100
+					invaders[j].x = invaders[j].y = -100;
+					bullets[i].x = bullets[i].y = -200;
 				}
 			}
 		}
