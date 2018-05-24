@@ -6,11 +6,12 @@
 	</head>
 	<body>
 		<div id="content">
-			<canvas id="gameCanvas" width="960" height="600" style="background:black;"></canvas>
+			<canvas id="gameCanvas" width="960" height="600"></canvas>
 		</div>
 	</body>
 </html>
 <script type="text/javascript" src="createjs.min.js"></script>
+<script type="text/javascript" src="ndgmr.Collision.js"></script>
 <script type="text/javascript">
 
 	var KEYCODE_ENTER = 13;
@@ -22,6 +23,7 @@
 
 	var canvas;
 
+	var bulletsPos    = 0;
 	var bulletsLenght = 0;
 	var bullets = [];
 
@@ -69,10 +71,9 @@
 
 	function createBullet() {
 
-		bullet = new createjs.Shape();
-		bullet.graphics.beginFill('#FFFFFF').drawRect(0,0,3,6);
+		bullet = new createjs.Bitmap("img/bullet.png");
 	    bullet.y = canvas.canvas.height - 50;
-	    bullet.x = spaceship.x + spaceship.image.width/2 - 1;
+	    bullet.x = spaceship.x + spaceship.image.width/2 - 2;
 
 		bullets[bulletsLenght] = bullet;
 	    canvas.addChild(bullets[bulletsLenght]);
@@ -81,9 +82,22 @@
 
 	createjs.Ticker.addEventListener("tick", tick);
 	function tick() {
-		for(var i=0;i<bulletsLenght;i++) {
-			bullets[i].y -= 5;
+		for(var i=bulletsPos;i<bulletsLenght;i++) {
+			if(bullets[i].y < -10) {
+				canvas.removeChild(bullets[i]);
+				bulletsPos++;
+			}
+			else bullets[i].y -= 5;
+			for(var j=0;j<invaders.length;j++) {
+				if(ndgmr.checkRectCollision(invaders[j], bullets[i])) {
+					canvas.removeChild(invaders[j]);
+					canvas.removeChild(bullets[i]);
+
+					invaders[j].x = invaders[j].y = bullets[i].x = bullets[i].y = -100
+				}
+			}
 		}
+
 		canvas.update();
 	}
 
