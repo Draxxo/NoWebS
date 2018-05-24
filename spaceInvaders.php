@@ -40,6 +40,9 @@
 
 	var soundDestruction = "Trolol";
 
+	var score = 0;
+	var textScore;
+
 	function initMenu() {
 	    canvas = new createjs.Stage("gameCanvas");
 	    
@@ -78,6 +81,11 @@
 	    }
 	    
 	    createjs.Sound.registerSound("music/trolol.mp3", soundDestruction);
+
+	    textScore = new createjs.Text(score + " points", "20px Arial", "#ffffff");
+	    textScore.y = 20;
+	    textScore.x = 20;
+	    canvas.addChild(textScore);
 
 	    canvas.update();
 	}
@@ -126,7 +134,7 @@
 
 	    for(var j=0;j<invaders.length;j++) {
 		    if(ndgmr.checkRectCollision(invaders[j], spaceship)) {
-		    	window.location.reload()
+		    	window.location.reload();
 		    }
 		}	
 
@@ -143,6 +151,8 @@
 					canvas.removeChild(bullets[i]);
 
 					createjs.Sound.play(soundDestruction);
+					score += 100;
+					textScore.text = score + " points";
 
 					invaders[j].x = invaders[j].y = -100;
 					bullets[i].x = bullets[i].y = -200;
